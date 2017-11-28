@@ -3,15 +3,18 @@
 
 #include "../../framework/model/AtomicModel.h"
 class MemoryModel : public AtomicModel {
-    vector<char> init_input_symbol_set();
+public:
+    vector<string> init_input_symbol_set();
     vector <string> init_output_token_set();
-    bool init_receives_external_input();
     string get_state_string();
 
-    vector<string> lambda();
-    void delta(vector<char> input);
-
 protected:
+    void deltaInt();
+    void deltaExt();
+    void deltaConf();
+    vector<string> lambda();
+    DiscreteEvent generate_time_advance_event();
+
     int queue[2] = {0,0};
 };
 

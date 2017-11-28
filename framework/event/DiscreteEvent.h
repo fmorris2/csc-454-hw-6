@@ -13,9 +13,9 @@ using namespace std;
 #include <iostream>
 class DiscreteEvent {
 public:
-    DiscreteEvent(double rt, int dt, char s);
+    DiscreteEvent(double rt, int dt, string s);
     int discrete_time;
-    char symbol;
+    string symbol;
     double get_real_time() const;
     int get_real_time_int() const;
     bool is_time_adv() const;

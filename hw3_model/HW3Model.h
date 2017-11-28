@@ -7,11 +7,10 @@
 class HW3Model : public NetworkModel {
 public:
     HW3Model(){}
+    void execute_functions();
 protected:
-    vector<char> init_input_symbol_set();
+    vector<string> init_input_symbol_set();
     vector <string> init_output_token_set();
-    bool init_receives_external_input();
-    int init_internal_ticks();
     string get_state_string();
 
     vector<Model*> init_sub_models();

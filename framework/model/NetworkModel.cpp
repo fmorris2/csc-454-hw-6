@@ -34,11 +34,7 @@ void NetworkModel::initialize_time_advance() {
 
 }
 
-void NetworkModel::route_output(Model *model) {
-
-}
-
-void NetworkModel::reset_input_and_output() {
+void Model::reset_input_and_output() {
 
 }
 

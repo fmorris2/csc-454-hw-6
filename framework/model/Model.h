@@ -38,6 +38,7 @@ protected:
     void log(string str);
 
     vector <DiscreteEvent> queued_events;
+    vector <string> input_symbol_set;
     vector <string> output_token_set;
     vector <string> output;
 

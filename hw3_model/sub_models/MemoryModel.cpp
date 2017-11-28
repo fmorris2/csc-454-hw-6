@@ -4,14 +4,20 @@ vector<string> MemoryModel::lambda() {
     return {to_string(queue[0])};
 }
 
-void MemoryModel::delta(vector<char> input) {
-    if(input.size() > 0) {
-        char input_token = input[0];
-        debug(string("input token: ") + input_token);
-        queue[0] = queue[1];
-        queue[1] = input_token == '1' ? 1 : 0;
-        debug(string("new queue: ") + get_state_string());
-    }
+void MemoryModel::deltaInt() {
+
+}
+
+void MemoryModel::deltaExt() {
+
+}
+
+void MemoryModel::deltaConf() {
+
+}
+
+DiscreteEvent MemoryModel::generate_time_advance_event() {
+
 }
 
 string MemoryModel::get_state_string() {
@@ -22,10 +28,6 @@ vector <string> MemoryModel::init_output_token_set() {
     return {"0","1"};
 }
 
-vector<char> MemoryModel::init_input_symbol_set() {
-    return {'0','1'};
-}
-
-bool MemoryModel::init_receives_external_input() {
-    return false;
+vector<string> MemoryModel::init_input_symbol_set() {
+    return {"0","1"};
 }

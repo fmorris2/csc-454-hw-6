@@ -25,11 +25,13 @@ bool CustomPriorityQueue::is_empty() {
 }
 
 DiscreteEvent CustomPriorityQueue::peek() {
-    return 0;
+    DiscreteEvent e = DiscreteEvent(0,5,"");
+    return e;
 }
 
 DiscreteEvent CustomPriorityQueue::poll() {
-    return 0;
+    DiscreteEvent e = DiscreteEvent(0,5,"");
+    return e;
 }
 
 int CustomPriorityQueue::size() {

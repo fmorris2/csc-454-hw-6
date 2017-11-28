@@ -6,14 +6,14 @@
 
 const double REAL_TIME_MODIFIER = 100.0;
 
-DiscreteEvent::DiscreteEvent(double rt, int dt, char s) {
+DiscreteEvent::DiscreteEvent(double rt, int dt, string s) {
     real_time = rt;
     discrete_time = dt;
     symbol = s;
 }
 
 bool DiscreteEvent::is_time_adv() const {
-    return symbol == 't';
+    return symbol.compare("time advance") == 0;
 }
 
 double DiscreteEvent::get_real_time() const {

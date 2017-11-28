@@ -4,28 +4,31 @@
 #include <stdio.h>
 #include <vector>
 
-Simulation::Simulation(Model *model) {
+DevsSimulation::DevsSimulation(NetworkModel *model, vector<DiscreteEvent> input_trajectory) {
     this->model = model;
 }
 
-void Simulation::run() {
-    while(model->is_running) {
-        cout << "[Simulation] Executing tick #" << tick << endl;
-        vector<string> output = model->tick();
-        cout << "[Simulation] " << model->get_model_name() << " output at simulation tick #" << tick << ": " << endl;
-        for(string token : output) {
-            cout << "\t" << token << endl;
-        }
+void DevsSimulation::run() {
 
-        tick++;
-    }
 }
 
-void Simulation::set_debug_mode(bool debug) {
+bool DevsSimulation::should_execute() {
+    return false;
+}
+
+bool DevsSimulation::event_queue_has_no_input() {
+    return false;
+}
+
+bool DevsSimulation::has_all_inf_time_advance(vector <DiscreteEvent> events) {
+    return false;
+}
+
+void DevsSimulation::set_debug_mode(bool debug) {
     model->set_debug_mode(debug);
 }
 
-void Simulation::cleanup() {
+void DevsSimulation::cleanup() {
     model->cleanup();
     cout << "[Simulation] Cleaning up " << model->get_model_name() << endl;
     delete(model);

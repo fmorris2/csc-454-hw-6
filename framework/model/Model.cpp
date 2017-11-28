@@ -14,12 +14,6 @@ void Model::queue_events(vector <DiscreteEvent> events) {
 
 }
 
-void Model::execute_delta() {
-    for(int i = 0; i < internal_ticks; i++) {
-        execute_delta_once();
-    }
-}
-
 void Model::reset_input_and_output() {
     queued_events.clear();
     output.clear();
