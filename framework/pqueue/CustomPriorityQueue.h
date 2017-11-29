@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "../event/DiscreteEvent.h"
+using namespace std;
 class CustomPriorityQueue {
 public:
     CustomPriorityQueue();
@@ -15,9 +16,17 @@ public:
     void clear();
     int size();
     bool is_empty();
-    DiscreteEvent peek();
-    DiscreteEvent poll();
+    DiscreteEvent* peek();
+    void delete_min();
 
+private:
+    vector<DiscreteEvent> heap;
+    void percolate_down(int index);
+    void percolate_up(int index);
+    void heapify();
+    int get_left_child_index(int index);
+    int get_right_child_index(int index);
+    int get_parent_index(int index);
 };
 
 #endif //CSC_454_HW_6_CUSTOMPRIORITYQUEUE_H

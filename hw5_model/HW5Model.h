@@ -6,7 +6,7 @@
 #define CSC_454_HW_6_HW5MODEL_H
 
 #include "../framework/model/NetworkModel.h"
-class HW5Model : NetworkModel {
+class HW5Model : public NetworkModel {
 public:
     HW5Model(){}
     void execute_functions();

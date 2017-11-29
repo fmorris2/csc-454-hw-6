@@ -16,6 +16,7 @@ public:
     void initialize_time_advance();
     void run();
     void execute_functions();
+    void reset_input_and_output();
 
     //setters
     void set_debug_mode(bool mode);

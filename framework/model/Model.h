@@ -12,7 +12,7 @@ public:
     void queue_events(vector<DiscreteEvent> events);
     void execute_delta();
     void debug(string str);
-    void reset_input_and_output();
+    virtual void reset_input_and_output();
 
     virtual void execute_functions() = 0;
     virtual void cleanup();
