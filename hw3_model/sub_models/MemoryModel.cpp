@@ -4,15 +4,15 @@ vector<string> MemoryModel::lambda() {
     return {to_string(queue[0])};
 }
 
-void MemoryModel::deltaInt() {
+void MemoryModel::delta_int() {
 
 }
 
-void MemoryModel::deltaExt() {
+void MemoryModel::delta_ext() {
 
 }
 
-void MemoryModel::deltaConf() {
+void MemoryModel::delta_conf() {
 
 }
 

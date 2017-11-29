@@ -13,12 +13,13 @@ using namespace std;
 #include <iostream>
 class DiscreteEvent {
 public:
-    DiscreteEvent(double rt, int dt, string s);
+    DiscreteEvent(int model_id, double rt, int dt, string s);
     int discrete_time;
     string symbol;
     double get_real_time() const;
     int get_real_time_int() const;
     bool is_time_adv() const;
+    int get_model_id() const;
     string toString();
 
     bool operator <(const DiscreteEvent& o) {
@@ -42,22 +43,9 @@ public:
         return get_real_time_int() > o.get_real_time_int();
     }
 
-
-
 protected:
     double real_time;
-};
-
-struct DiscreteEventCompare
-{
-    bool operator()(DiscreteEvent &t1, DiscreteEvent &t2)
-    {
-        if(t1.get_real_time_int() == t2.get_real_time_int()) {
-            return t1.discrete_time > t2.discrete_time;
-        }
-
-        return t1.get_real_time_int() > t2.get_real_time_int();
-    }
+    int model_id;
 };
 
 #endif //CSC_454_HW_5A_DISCRETEEVENT_H

@@ -8,10 +8,10 @@ int main() {
     NetworkModel* model = NetworkModel::create_network_model<HW5Model> ("HW5 Model");
 
     const vector<DiscreteEvent> INPUT_TRAJECTORY = {
-            DiscreteEvent(0.7,0,"took"),
-            DiscreteEvent(0,7,"hi"), DiscreteEvent(0,2,"took"),
-            DiscreteEvent(1,2,"test"), DiscreteEvent(0.5,3,"poop"),
-            DiscreteEvent(3,1,"hello"), DiscreteEvent(3,0,"yup")
+            DiscreteEvent(0, 0.7,0,"took"),
+            DiscreteEvent(0, 0,7,"hi"), DiscreteEvent(0, 0,2,"took"),
+            DiscreteEvent(0, 1,2,"test"), DiscreteEvent(0, 0.5,3,"poop"),
+            DiscreteEvent(0, 3,1,"hello"), DiscreteEvent(0, 3,0,"yup")
     };
 
     CustomPriorityQueue p_queue;

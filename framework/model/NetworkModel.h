@@ -7,6 +7,7 @@
 class NetworkModel : public Model {
 public:
     void cleanup();
+    void time_advance();
 
     //abstract methods
     virtual vector<Model*> init_sub_models() = 0;

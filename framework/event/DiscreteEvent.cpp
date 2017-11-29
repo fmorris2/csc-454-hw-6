@@ -6,10 +6,15 @@
 
 const double REAL_TIME_MODIFIER = 100.0;
 
-DiscreteEvent::DiscreteEvent(double rt, int dt, string s) {
+DiscreteEvent::DiscreteEvent(int model_id, double rt, int dt, string s) {
+    this->model_id = model_id;
     real_time = rt;
     discrete_time = dt;
     symbol = s;
+}
+
+int DiscreteEvent::get_model_id() const {
+    return model_id;
 }
 
 bool DiscreteEvent::is_time_adv() const {

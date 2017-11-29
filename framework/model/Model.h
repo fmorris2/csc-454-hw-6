@@ -15,6 +15,7 @@ public:
     virtual void reset_input_and_output();
 
     virtual void execute_functions() = 0;
+    virtual void time_advance() = 0;
     virtual void cleanup();
     virtual void init(string model_name);
 
@@ -35,13 +36,16 @@ public:
     }
 
 protected:
+    static int num_models;
     void log(string str);
+    bool queued_events_has_time_adv();
 
     vector <DiscreteEvent> queued_events;
     vector <string> input_symbol_set;
     vector <string> output_token_set;
     vector <string> output;
     double elapsed_time, last_event_time;
+    int model_id;
 
     virtual vector <string> init_input_symbol_set() = 0;
     virtual vector <string> init_output_token_set() = 0;

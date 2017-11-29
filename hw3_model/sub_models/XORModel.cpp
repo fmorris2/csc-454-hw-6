@@ -4,15 +4,15 @@ vector<string> XORModel::lambda() {
     return {to_string(bit)};
 }
 
-void XORModel::deltaInt() {
+void XORModel::delta_int() {
 
 }
 
-void XORModel::deltaExt() {
+void XORModel::delta_ext() {
 
 }
 
-void XORModel::deltaConf() {
+void XORModel::delta_conf() {
 
 }
 

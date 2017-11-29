@@ -19,6 +19,15 @@ public:
     DiscreteEvent* peek();
     void delete_min();
 
+    vector<DiscreteEvent> get_elements();
+
+    double get_elapsed_time();
+    double get_real_time();
+    string get_time_string();
+    void reset_discrete_time();
+    void increment_discrete_time();
+
+
 private:
     vector<DiscreteEvent> heap;
     void percolate_down(int index);
@@ -27,6 +36,9 @@ private:
     int get_left_child_index(int index);
     int get_right_child_index(int index);
     int get_parent_index(int index);
+
+    double last_polled_real_time;
+    int discrete_time;
 };
 
 #endif //CSC_454_HW_6_CUSTOMPRIORITYQUEUE_H

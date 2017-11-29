@@ -4,13 +4,12 @@
 
 class AtomicModel : public Model {
 public:
-    void time_advance();
     void execute_functions();
-
+    void time_advance();
 protected:
-    virtual void deltaInt() = 0;
-    virtual void deltaExt() = 0;
-    virtual void deltaConf() = 0;
+    virtual void delta_int() = 0;
+    virtual void delta_ext() = 0;
+    virtual void delta_conf() = 0;
     virtual vector<string> lambda() = 0;
     virtual DiscreteEvent generate_time_advance_event() = 0;
 

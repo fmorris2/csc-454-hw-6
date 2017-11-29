@@ -112,3 +112,34 @@ int CustomPriorityQueue::get_right_child_index(int index) {
 int CustomPriorityQueue::get_parent_index(int index) {
     return (index - 1) / 2;
 }
+
+vector<DiscreteEvent> CustomPriorityQueue::get_elements() {
+    return heap;
+}
+
+double CustomPriorityQueue::get_real_time() {
+    DiscreteEvent* current = peek();
+    return current == 0 ? 0 : current->get_real_time();
+}
+
+string CustomPriorityQueue::get_time_string() {
+    DiscreteEvent* current = peek();
+    return current == 0 ? "(0,0)"
+            : "("+to_string(current->get_real_time())+","+to_string(discrete_time)+")";
+}
+
+double CustomPriorityQueue::get_elapsed_time() {
+    if(heap.size() == 0) {
+        return 0;
+    }
+
+    return heap[0].get_real_time() - last_polled_real_time;
+}
+
+void CustomPriorityQueue::reset_discrete_time() {
+    discrete_time = 0;
+}
+
+void CustomPriorityQueue::increment_discrete_time() {
+    discrete_time++;
+}

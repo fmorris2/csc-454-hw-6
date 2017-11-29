@@ -11,9 +11,9 @@ public:
 protected:
     int bit = 0;
 
-    void deltaInt();
-    void deltaExt();
-    void deltaConf();
+    void delta_int();
+    void delta_ext();
+    void delta_conf();
     vector<string> lambda();
     DiscreteEvent generate_time_advance_event();
 };
