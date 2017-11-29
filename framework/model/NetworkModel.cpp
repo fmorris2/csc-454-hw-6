@@ -24,15 +24,67 @@ void NetworkModel::run() {
 }
 
 void NetworkModel::execute_sub_models_with_events() {
-
+    for(Model* m : sub_models) {
+        if(!m->get_queued_events().empty()) {
+            m->execute_functions();
+            if(!m->get_output().empty()) {
+                route_output(m);
+            }
+            m->reset_input_and_output();
+        }
+    }
 }
 
 void NetworkModel::route_output(Model *model) {
-
+    debug("route output for " + model->get_model_name());
+    for(Coupling c : couplings) {
+        if(c.first == model) {
+            if(c.second == 0) {
+                debug("routing output from " + model->get_model_name() + " to " + get_model_name());
+                output.insert(output.end(), model->get_output().begin(), model->get_output().end());
+            }
+            else {
+                debug("routing output from" + model->get_model_name() + " to " + c.second->get_model_name());
+                for(string output_token : output) {
+                    c.second->queue_events({DiscreteEvent(c.second->get_model_id(), Schedulers::CURRENT.get_real_time(), Schedulers::CURRENT.get_discrete_time(), output_token)});
+                    Schedulers::CURRENT.increment_discrete_time();
+                }
+            }
+        }
+    }
 }
 
 void NetworkModel::pass_relevant_events_to_sub_models(vector <DiscreteEvent> events) {
-    
+    vector<DiscreteEvent> input_list;
+    for(DiscreteEvent e : events) {
+        if(e.is_time_adv()) {
+            get_model_for_id(e.get_model_id())->queue_events({e});
+        }
+        else {
+            input_list.push_back(e);
+        }
+    }
+
+    if(input_list.empty()) {
+        return;
+    }
+
+    for(Coupling c : couplings) {
+        if(c.first == 0) {
+            c.second->queue_events(input_list);
+        }
+    }
+
+}
+
+Model* NetworkModel::get_model_for_id(int id) {
+    for(Model* m : sub_models) {
+        if(m->get_model_id() == id) {
+            return m;
+        }
+    }
+
+    return 0;
 }
 
 void NetworkModel::execute_functions() {

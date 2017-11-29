@@ -12,6 +12,7 @@ public:
     void queue_events(vector<DiscreteEvent> events);
     void execute_delta();
     void debug(string str);
+    int get_model_id();
     virtual void reset_input_and_output();
 
     virtual void execute_functions() = 0;
@@ -24,6 +25,8 @@ public:
 
     //getters
     string get_model_name();
+    vector<string> get_output();
+    vector<DiscreteEvent> get_queued_events();
     bool is_running = true;
 
     //factory method

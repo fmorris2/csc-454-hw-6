@@ -39,6 +39,19 @@ bool Model::queued_events_has_time_adv() {
 
     return false;
 }
+
+vector<string> Model::get_output() {
+    return output;
+}
+
+vector<DiscreteEvent> Model::get_queued_events() {
+    return queued_events;
+}
+
+int Model::get_model_id() {
+    return model_id;
+}
+
 void Model::set_debug_mode(bool mode) {
     debug_mode = mode;
 }

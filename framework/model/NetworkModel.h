@@ -39,6 +39,7 @@ private:
     void execute_sub_models_with_events();
     void pass_relevant_events_to_sub_models(vector<DiscreteEvent> events);
     void prepare_next_events();
+    Model* get_model_for_id(int id);
 };
 
 #endif //CSC_454_HW_4A_NETWORKMODEL_H

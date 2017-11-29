@@ -9,6 +9,7 @@
  * for some of the heap source code
  */
 
+int CustomPriorityQueue::discrete_time = 0;
 CustomPriorityQueue::CustomPriorityQueue() {
 
 }
@@ -142,4 +143,8 @@ void CustomPriorityQueue::reset_discrete_time() {
 
 void CustomPriorityQueue::increment_discrete_time() {
     discrete_time++;
+}
+
+int CustomPriorityQueue::get_discrete_time() {
+    return discrete_time;
 }

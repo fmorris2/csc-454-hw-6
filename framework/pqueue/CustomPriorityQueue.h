@@ -26,6 +26,7 @@ public:
     string get_time_string();
     void reset_discrete_time();
     void increment_discrete_time();
+    int get_discrete_time();
 
 
 private:
@@ -38,7 +39,7 @@ private:
     int get_parent_index(int index);
 
     double last_polled_real_time;
-    int discrete_time;
+    static int discrete_time;
 };
 
 #endif //CSC_454_HW_6_CUSTOMPRIORITYQUEUE_H
