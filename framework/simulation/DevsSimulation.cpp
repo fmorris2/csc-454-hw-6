@@ -3,9 +3,11 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include "../event/Schedulers.cpp"
 
 DevsSimulation::DevsSimulation(NetworkModel *model, vector<DiscreteEvent> input_trajectory) {
     this->model = model;
+    Schedulers::GLOBAL.add_all(input_trajectory);
 }
 
 void DevsSimulation::run() {

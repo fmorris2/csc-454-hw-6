@@ -41,6 +41,7 @@ protected:
     vector <string> input_symbol_set;
     vector <string> output_token_set;
     vector <string> output;
+    double elapsed_time, last_event_time;
 
     virtual vector <string> init_input_symbol_set() = 0;
     virtual vector <string> init_output_token_set() = 0;
