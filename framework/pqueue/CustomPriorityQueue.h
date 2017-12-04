@@ -11,15 +11,15 @@ using namespace std;
 class CustomPriorityQueue {
 public:
     CustomPriorityQueue();
-    void add_all(vector<DiscreteEvent> events);
-    void insert(DiscreteEvent e);
+    void add_all(vector<DiscreteEvent*> events);
+    void insert(DiscreteEvent* e);
     void clear();
     int size();
     bool is_empty();
     DiscreteEvent* peek();
     void delete_min();
 
-    vector<DiscreteEvent> get_elements();
+    vector<DiscreteEvent*> get_elements();
 
     double get_elapsed_time();
     double get_real_time();
@@ -30,7 +30,7 @@ public:
 
 
 private:
-    vector<DiscreteEvent> heap;
+    vector<DiscreteEvent*> heap;
     void percolate_down(int index);
     void percolate_up(int index);
     void heapify();

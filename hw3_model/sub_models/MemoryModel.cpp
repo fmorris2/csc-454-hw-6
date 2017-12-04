@@ -16,7 +16,7 @@ void MemoryModel::delta_conf() {
 
 }
 
-DiscreteEvent MemoryModel::generate_time_advance_event() {
+DiscreteEvent* MemoryModel::generate_time_advance_event() {
 
 }
 

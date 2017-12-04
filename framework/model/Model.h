@@ -9,7 +9,7 @@ using namespace std;
 class Model {
 public:
     vector <string> execute_lambda();
-    void queue_events(vector<DiscreteEvent> events);
+    void queue_events(vector<DiscreteEvent*> events);
     void execute_delta();
     void debug(string str);
     int get_model_id();
@@ -26,7 +26,7 @@ public:
     //getters
     string get_model_name();
     vector<string> get_output();
-    vector<DiscreteEvent> get_queued_events();
+    vector<DiscreteEvent*> get_queued_events();
     bool is_running = true;
 
     //factory method
@@ -43,7 +43,7 @@ protected:
     void log(string str);
     bool queued_events_has_time_adv();
 
-    vector <DiscreteEvent> queued_events;
+    vector <DiscreteEvent*> queued_events;
     vector <string> input_symbol_set;
     vector <string> output_token_set;
     vector <string> output;

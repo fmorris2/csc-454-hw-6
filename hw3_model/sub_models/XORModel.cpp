@@ -16,7 +16,7 @@ void XORModel::delta_conf() {
 
 }
 
-DiscreteEvent XORModel::generate_time_advance_event() {
+DiscreteEvent* XORModel::generate_time_advance_event() {
 
 }
 

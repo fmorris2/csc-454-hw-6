@@ -15,7 +15,7 @@ protected:
     void delta_ext();
     void delta_conf();
     vector<string> lambda();
-    DiscreteEvent generate_time_advance_event();
+    DiscreteEvent* generate_time_advance_event();
 };
 
 #endif //CSC_454_HW_4A_XORMODEL_H

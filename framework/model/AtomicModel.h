@@ -11,7 +11,7 @@ protected:
     virtual void delta_ext() = 0;
     virtual void delta_conf() = 0;
     virtual vector<string> lambda() = 0;
-    virtual DiscreteEvent generate_time_advance_event() = 0;
+    virtual DiscreteEvent* generate_time_advance_event() = 0;
 
 private:
     void handle_lambda();

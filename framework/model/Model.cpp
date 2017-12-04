@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include "../event/Schedulers.cpp"
+#include "../event/Schedulers.h"
 string SENTINEL = "halt.";
 
 int Model::num_models = 0;
@@ -15,12 +15,12 @@ void Model::init(string model_name) {
     this->model_name = model_name;
 }
 
-void Model::queue_events(vector <DiscreteEvent> events) {
+void Model::queue_events(vector <DiscreteEvent*> events) {
     queued_events.insert(queued_events.end(), events.begin(), events.end());
     debug("queued up " + to_string(events.size()) + " events for " + model_name
           + "... model now has " + to_string(queued_events.size()) + " queued events.");
     elapsed_time = Schedulers::CURRENT.get_real_time() - last_event_time;
-    last_event_time = events.back().get_real_time();
+    last_event_time = events.back()->get_real_time();
 }
 
 void Model::reset_input_and_output() {
@@ -31,8 +31,8 @@ void Model::reset_input_and_output() {
 void Model::cleanup() {}
 
 bool Model::queued_events_has_time_adv() {
-    for(DiscreteEvent e : queued_events) {
-        if(e.is_time_adv()) {
+    for(DiscreteEvent* e : queued_events) {
+        if(e->is_time_adv()) {
             return true;
         }
     }
@@ -44,7 +44,7 @@ vector<string> Model::get_output() {
     return output;
 }
 
-vector<DiscreteEvent> Model::get_queued_events() {
+vector<DiscreteEvent*> Model::get_queued_events() {
     return queued_events;
 }
 

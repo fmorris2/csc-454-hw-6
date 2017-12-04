@@ -1,5 +1,5 @@
 #include "AtomicModel.h"
-#include "../event/Schedulers.cpp"
+#include "../event/Schedulers.h"
 
 void AtomicModel::execute_functions() {
     const bool TIME_ADVANCE_NEEDED = queued_events_has_time_adv();
@@ -31,20 +31,20 @@ void AtomicModel::handle_lambda() {
 }
 
 void AtomicModel::time_advance() {
-    vector<DiscreteEvent> temp;
-    vector<DiscreteEvent> global = Schedulers::GLOBAL.get_elements();
+    vector<DiscreteEvent*> temp;
+    vector<DiscreteEvent*> global = Schedulers::GLOBAL.get_elements();
 
     //get rid of any old time adv event for this model
     for(int i = 0; i < global.size(); i++) {
-        if(!global[i].is_time_adv() || global[i].get_model_id() != model_id) {
+        if(!global[i]->is_time_adv() || global[i]->get_model_id() != model_id) {
             temp.push_back(global[i]);
         }
     }
 
     //schedule new time adv
-    DiscreteEvent new_time_adv = generate_time_advance_event();
+    DiscreteEvent* new_time_adv = generate_time_advance_event();
     temp.push_back(new_time_adv);
     Schedulers::GLOBAL.clear();
     Schedulers::GLOBAL.add_all(temp);
-    debug("new time advance has been scheduled: " + new_time_adv.toString());
+    debug("new time advance has been scheduled: " + new_time_adv->toString());
 }

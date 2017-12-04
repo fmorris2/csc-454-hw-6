@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <vector>
 #include <limits.h>
-#include "../event/Schedulers.cpp"
+#include "../event/Schedulers.h"
 
-DevsSimulation::DevsSimulation(NetworkModel *model, vector<DiscreteEvent> input_trajectory) {
+DevsSimulation::DevsSimulation(NetworkModel *model, vector<DiscreteEvent*> input_trajectory) {
     this->model = model;
     Schedulers::GLOBAL.add_all(input_trajectory);
     model->initialize_time_advance();
@@ -15,28 +15,33 @@ DevsSimulation::DevsSimulation(NetworkModel *model, vector<DiscreteEvent> input_
 void DevsSimulation::run() {
     while(should_execute()) {
         model->run();
+        for(string network_output_token : model->get_output()) {
+            cout << "Network Output for " << model->get_model_name() << ": " << network_output_token << endl;
+        }
+        model->reset_input_and_output();
         Schedulers::CURRENT.reset_discrete_time();
     }
 }
 
 bool DevsSimulation::should_execute() {
     return !(has_all_inf_time_advance(Schedulers::CURRENT.get_elements())
-                && event_queue_has_no_input()
+                && has_no_input(Schedulers::CURRENT.get_elements())
+                && has_no_input(Schedulers::GLOBAL.get_elements())
                 && has_all_inf_time_advance(Schedulers::GLOBAL.get_elements()));
 }
 
-bool DevsSimulation::event_queue_has_no_input() {
-    for(DiscreteEvent e : Schedulers::GLOBAL.get_elements()) {
-        if(!e.is_time_adv()) {
+bool DevsSimulation::has_no_input(vector <DiscreteEvent*> events){
+    for(DiscreteEvent* e : events) {
+        if(!e->is_time_adv()) {
             return false;
         }
     }
     return true;
 }
 
-bool DevsSimulation::has_all_inf_time_advance(vector <DiscreteEvent> events) {
-    for(DiscreteEvent e : events) {
-        if(e.is_time_adv() && e.get_real_time() < INT_MAX) {
+bool DevsSimulation::has_all_inf_time_advance(vector <DiscreteEvent*> events) {
+    for(DiscreteEvent* e : events) {
+        if(e->is_time_adv() && e->get_real_time() < INT_MAX) {
             return false;
         }
     }

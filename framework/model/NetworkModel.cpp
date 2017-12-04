@@ -1,6 +1,6 @@
 #include "NetworkModel.h"
 
-#include "../event/Schedulers.cpp"
+#include "../event/Schedulers.h"
 void NetworkModel::init(string model_name) {
     Model::init(model_name);
     sub_models = init_sub_models();
@@ -41,24 +41,25 @@ void NetworkModel::route_output(Model *model) {
         if(c.first == model) {
             if(c.second == 0) {
                 debug("routing output from " + model->get_model_name() + " to " + get_model_name());
-                output.insert(output.end(), model->get_output().begin(), model->get_output().end());
+                for(string token : model->get_output()) {
+                    output.push_back(token);
+                }
             }
             else {
-                debug("routing output from" + model->get_model_name() + " to " + c.second->get_model_name());
-                for(string output_token : output) {
-                    c.second->queue_events({DiscreteEvent(c.second->get_model_id(), Schedulers::CURRENT.get_real_time(), Schedulers::CURRENT.get_discrete_time(), output_token)});
-                    Schedulers::CURRENT.increment_discrete_time();
+                debug("routing output from " + model->get_model_name() + " to " + c.second->get_model_name());
+                for(string output_token : model->get_output()) {
+                    c.second->queue_events({new DiscreteEvent(c.second->get_model_id(), Schedulers::CURRENT.get_real_time(), Schedulers::CURRENT.get_discrete_time(), output_token)});
                 }
             }
         }
     }
 }
 
-void NetworkModel::pass_relevant_events_to_sub_models(vector <DiscreteEvent> events) {
-    vector<DiscreteEvent> input_list;
-    for(DiscreteEvent e : events) {
-        if(e.is_time_adv()) {
-            get_model_for_id(e.get_model_id())->queue_events({e});
+void NetworkModel::pass_relevant_events_to_sub_models(vector <DiscreteEvent*> events) {
+    vector<DiscreteEvent*> input_list;
+    for(DiscreteEvent* e : events) {
+        if(e->is_time_adv()) {
+            get_model_for_id(e->get_model_id())->queue_events({e});
         }
         else {
             input_list.push_back(e);
@@ -98,7 +99,7 @@ void NetworkModel::prepare_next_events() {
             DiscreteEvent* event = Schedulers::GLOBAL.peek();
             Schedulers::GLOBAL.delete_min();
             debug("Adding event from event queue to current events: " + event->toString());
-            Schedulers::CURRENT.insert(*event);
+            Schedulers::CURRENT.insert(event);
 
         }while(!Schedulers::GLOBAL.is_empty()
                && Schedulers::GLOBAL.peek()->get_real_time()

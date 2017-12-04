@@ -14,19 +14,20 @@ CustomPriorityQueue::CustomPriorityQueue() {
 
 }
 
-void CustomPriorityQueue::insert(DiscreteEvent e) {
+void CustomPriorityQueue::insert(DiscreteEvent* e) {
     const int SIZE = size();
-    heap[SIZE] = e;
+    heap.push_back(e);
 
     percolate_up(SIZE);
 }
 
-void CustomPriorityQueue::add_all(vector <DiscreteEvent> events) {
+void CustomPriorityQueue::add_all(vector <DiscreteEvent*> events) {
     heap.insert(heap.end(), events.begin(), events.end());
     heapify();
 }
 
 void CustomPriorityQueue::clear() {
+    last_polled_real_time = is_empty() ? 0 : heap[0]->get_real_time();
     heap.clear();
 }
 
@@ -35,7 +36,7 @@ bool CustomPriorityQueue::is_empty() {
 }
 
 DiscreteEvent* CustomPriorityQueue::peek() {
-    return size() > 0 ? &heap[0] : 0;
+    return size() > 0 ? heap[0] : 0;
 }
 
 void CustomPriorityQueue::delete_min() {
@@ -46,6 +47,7 @@ void CustomPriorityQueue::delete_min() {
         return;
     }
 
+    last_polled_real_time = heap[0]->get_real_time();
     heap[0] = heap[SIZE - 1];
     heap.pop_back();
     percolate_down(0);
@@ -67,9 +69,9 @@ void CustomPriorityQueue::percolate_up(int index) {
 
     const int PARENT = (index-1)/2;
 
-    if(heap[PARENT] > heap[index])
+    if(*heap[PARENT] > *heap[index])
     {
-        DiscreteEvent temp = heap[PARENT];
+        DiscreteEvent* temp = heap[PARENT];
         heap[PARENT] = heap[index];
         heap[index] = temp;
         percolate_up(PARENT);
@@ -86,16 +88,16 @@ void CustomPriorityQueue::percolate_down(int index) {
 
     int min_index = index;
 
-    if(heap[index] > heap[LEFT_CHILD]) {
+    if(*heap[index] > *heap[LEFT_CHILD]) {
         min_index = LEFT_CHILD;
     }
 
-    if((RIGHT_CHILD < size()) && (heap[min_index] > heap[RIGHT_CHILD])) {
+    if((RIGHT_CHILD < size()) && (*heap[min_index] > *heap[RIGHT_CHILD])) {
         min_index = RIGHT_CHILD;
     }
 
     if(min_index != index) { //swap needed
-        DiscreteEvent temp = heap[index];
+        DiscreteEvent* temp = heap[index];
         heap[index] = heap[min_index];
         heap[min_index] = temp;
         percolate_down(min_index);
@@ -114,7 +116,7 @@ int CustomPriorityQueue::get_parent_index(int index) {
     return (index - 1) / 2;
 }
 
-vector<DiscreteEvent> CustomPriorityQueue::get_elements() {
+vector<DiscreteEvent*> CustomPriorityQueue::get_elements() {
     return heap;
 }
 
@@ -134,7 +136,7 @@ double CustomPriorityQueue::get_elapsed_time() {
         return 0;
     }
 
-    return heap[0].get_real_time() - last_polled_real_time;
+    return heap[0]->get_real_time() - last_polled_real_time;
 }
 
 void CustomPriorityQueue::reset_discrete_time() {

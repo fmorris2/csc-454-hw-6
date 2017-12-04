@@ -37,7 +37,7 @@ private:
     void route_output(Model* model);
     void route_network_input(vector<char> input);
     void execute_sub_models_with_events();
-    void pass_relevant_events_to_sub_models(vector<DiscreteEvent> events);
+    void pass_relevant_events_to_sub_models(vector<DiscreteEvent*> events);
     void prepare_next_events();
     Model* get_model_for_id(int id);
 };

@@ -13,7 +13,7 @@ protected:
     void delta_ext();
     void delta_conf();
     vector<string> lambda();
-    DiscreteEvent generate_time_advance_event();
+    DiscreteEvent* generate_time_advance_event();
 
     int queue[2] = {0,0};
 };
