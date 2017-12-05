@@ -116,6 +116,24 @@ int CustomPriorityQueue::get_parent_index(int index) {
     return (index - 1) / 2;
 }
 
+bool CustomPriorityQueue::has_all_inf_time_advance() {
+    for(DiscreteEvent* e : heap) {
+        if(e->is_time_adv() && e->get_real_time() < INT_MAX) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool CustomPriorityQueue::has_no_input(){
+    for(DiscreteEvent* e : heap) {
+        if(!e->is_time_adv()) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void CustomPriorityQueue::cleanup() {
     for(DiscreteEvent* e : heap) {
         delete(e);

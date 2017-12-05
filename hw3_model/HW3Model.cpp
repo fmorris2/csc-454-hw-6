@@ -8,6 +8,17 @@ vector<Coupling> HW3Model::init_couplings() {
     };
 }
 
+bool HW3Model::has_reached_special_ending_conditions() {
+    const bool SCHEDULERS_HAVE_NO_INPUT = Schedulers::GLOBAL.has_no_input()
+                                  && Schedulers::CURRENT.has_no_input();
+
+    if(SCHEDULERS_HAVE_NO_INPUT) {
+        ticks_after_empty++;
+    }
+
+    return ticks_after_empty == 4;
+}
+
 vector<Model *> HW3Model::init_sub_models() {
     return {XOR_1, XOR_2, MEM_MODEL};
 }

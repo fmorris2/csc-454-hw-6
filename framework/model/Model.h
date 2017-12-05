@@ -14,7 +14,6 @@ public:
     void debug(string str);
     int get_model_id();
     virtual void reset_input_and_output();
-
     virtual void execute_functions() = 0;
     virtual void time_advance() = 0;
     virtual void cleanup();

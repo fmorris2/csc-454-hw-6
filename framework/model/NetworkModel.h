@@ -13,6 +13,8 @@ public:
     virtual vector<Model*> init_sub_models() = 0;
     virtual vector<Coupling> init_couplings() = 0;
 
+    virtual bool has_reached_special_ending_conditions();
+
     void init(string model_name);
     void initialize_time_advance();
     void run();

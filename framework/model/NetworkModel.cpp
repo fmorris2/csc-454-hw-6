@@ -130,6 +130,10 @@ void NetworkModel::time_advance() {
     initialize_time_advance();
 }
 
+bool NetworkModel::has_reached_special_ending_conditions() {
+    return false;
+}
+
 void NetworkModel::reset_input_and_output() {
     Model::reset_input_and_output();
     for(Model* m : sub_models) {

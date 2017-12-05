@@ -22,6 +22,8 @@ int main() {
     const vector<DiscreteEvent*> INPUT_TRAJECTORY = {
             new DiscreteEvent(0, 0.0,0,"0"),
             new DiscreteEvent(0, 0.0,1,"1"),
+            new DiscreteEvent(0, 1.0,0,"0"),
+            new DiscreteEvent(0, 1.0,1,"1"),
     };
 
     CustomPriorityQueue p_queue;

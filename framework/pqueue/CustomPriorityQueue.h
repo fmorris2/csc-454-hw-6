@@ -20,6 +20,8 @@ public:
     void delete_min();
 
     vector<DiscreteEvent*> get_elements();
+    bool has_no_input();
+    bool has_all_inf_time_advance();
 
     double get_elapsed_time();
     double get_real_time();
