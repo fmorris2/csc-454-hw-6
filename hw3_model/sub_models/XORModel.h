@@ -2,6 +2,7 @@
 #define CSC_454_HW_4A_XORMODEL_H
 
 #include "../../framework/model/AtomicModel.h"
+#include "../../framework/event/Schedulers.h"
 class XORModel : public AtomicModel {
 public:
     vector<string> init_input_symbol_set();
@@ -9,7 +10,7 @@ public:
     string get_state_string();
 
 protected:
-    int bit = 0;
+    vector<int> bits = {};
 
     void delta_int();
     void delta_ext();

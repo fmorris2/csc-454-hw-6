@@ -13,13 +13,16 @@ DevsSimulation::DevsSimulation(NetworkModel *model, vector<DiscreteEvent*> input
 }
 
 void DevsSimulation::run() {
-    while(should_execute()) {
+    int times = 0;
+    while(should_execute() && times < 20) {
+        cout << "Simulation currently at time " << Schedulers::CURRENT.get_time_string() << endl;
         model->run();
         for(string network_output_token : model->get_output()) {
             cout << "Network Output for " << model->get_model_name() << ": " << network_output_token << endl;
         }
         model->reset_input_and_output();
         Schedulers::CURRENT.reset_discrete_time();
+        times++;
     }
 }
 
@@ -56,4 +59,7 @@ void DevsSimulation::cleanup() {
     model->cleanup();
     cout << "[Simulation] Cleaning up " << model->get_model_name() << endl;
     delete(model);
+
+    Schedulers::CURRENT.cleanup();
+    Schedulers::GLOBAL.cleanup();
 }

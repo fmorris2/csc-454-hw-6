@@ -18,21 +18,34 @@ void NetworkModel::run() {
     pass_relevant_events_to_sub_models(Schedulers::CURRENT.get_elements());
     execute_sub_models_with_events();
 
+    Schedulers::CURRENT.cleanup();
     Schedulers::CURRENT.clear();
     prepare_next_events();
     cout << endl;
 }
 
 void NetworkModel::execute_sub_models_with_events() {
-    for(Model* m : sub_models) {
-        if(!m->get_queued_events().empty()) {
-            m->execute_functions();
-            if(!m->get_output().empty()) {
-                route_output(m);
+    do {
+        for (Model *m : sub_models) {
+            if (!m->get_queued_events().empty()) {
+                m->execute_functions();
+                if (!m->get_output().empty()) {
+                    route_output(m);
+                }
+                m->reset_input_and_output();
             }
-            m->reset_input_and_output();
+        }
+    }while(exists_sub_model_with_queued_events());
+}
+
+bool NetworkModel::exists_sub_model_with_queued_events() {
+    for(Model *m : sub_models) {
+        if(!m->get_queued_events().empty()) {
+            return true;
         }
     }
+
+    return false;
 }
 
 void NetworkModel::route_output(Model *model) {

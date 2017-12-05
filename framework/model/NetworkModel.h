@@ -39,6 +39,7 @@ private:
     void execute_sub_models_with_events();
     void pass_relevant_events_to_sub_models(vector<DiscreteEvent*> events);
     void prepare_next_events();
+    bool exists_sub_model_with_queued_events();
     Model* get_model_for_id(int id);
 };
 

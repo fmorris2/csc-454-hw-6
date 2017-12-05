@@ -27,6 +27,7 @@ public:
     void reset_discrete_time();
     void increment_discrete_time();
     int get_discrete_time();
+    void cleanup();
 
 
 private:

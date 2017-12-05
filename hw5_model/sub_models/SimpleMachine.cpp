@@ -8,7 +8,6 @@ void SimpleMachine::delta_int() {
     debug("deltaInt for " + get_model_name());
     parts_bin.pop_back();
     time_remaining = processing_time();
-    time_advance();
 }
 
 vector<string> SimpleMachine::lambda() {
@@ -30,10 +29,9 @@ void SimpleMachine::delta_ext() {
     for(DiscreteEvent* e : queued_events) {
         if(!e->is_time_adv()) {
             parts_bin.push_back(e->symbol);
+            debug("part added to bin.. parts bin now has " + to_string(parts_bin.size()) + " parts");
         }
     }
-
-    time_advance();
 }
 
 void SimpleMachine::delta_conf() {

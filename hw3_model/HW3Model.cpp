@@ -20,10 +20,6 @@ vector <string> HW3Model::init_output_token_set() {
     return {"0", "1"};
 }
 
-void HW3Model::execute_functions() {
-
-}
-
 string HW3Model::get_state_string() {
     return "N/A";
 }

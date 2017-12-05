@@ -2,6 +2,8 @@
 #define CSC_454_HW_4A_MEMORYMODEL_H
 
 #include "../../framework/model/AtomicModel.h"
+#include "../../framework/event/Schedulers.h"
+
 class MemoryModel : public AtomicModel {
 public:
     vector<string> init_input_symbol_set();

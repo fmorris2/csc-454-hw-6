@@ -10,12 +10,15 @@ void AtomicModel::execute_functions() {
 
     if(queued_events.size() >= 2 && TIME_ADVANCE_NEEDED) {
         delta_conf();
+        time_advance();
     }
     else if(queued_events.size() >= 1 && !TIME_ADVANCE_NEEDED) {
         delta_ext();
+        time_advance();
     }
     else if(TIME_ADVANCE_NEEDED) {
         delta_int();
+        time_advance();
     }
 
     Schedulers::CURRENT.increment_discrete_time();

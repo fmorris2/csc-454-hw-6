@@ -116,6 +116,13 @@ int CustomPriorityQueue::get_parent_index(int index) {
     return (index - 1) / 2;
 }
 
+void CustomPriorityQueue::cleanup() {
+    for(DiscreteEvent* e : heap) {
+        delete(e);
+        heap.clear();
+    }
+}
+
 vector<DiscreteEvent*> CustomPriorityQueue::get_elements() {
     return heap;
 }
